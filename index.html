@@ -20,11 +20,6 @@
           count: 0,
         }
       }
-      // countUp() {
-      //   this.setState({
-      //     count: this.state.count + 1,
-      //   });
-      // }
       render() {
         let modal;
         if(this.props.dog.votes < 5) {
@@ -72,6 +67,17 @@
             {dogs}
           </div>
         )
+      }
+
+    function DogsForm(props) {
+      return (
+        <form onSubmit={props.addImage}>
+          <input type="text" value={props.name}/>
+          <input type="file" value={props.image}/>
+          <input type="text" value={props.info} />
+          <input type="submit" value="送信" /> 
+        </form>
+      );
     }
     
 
@@ -80,30 +86,36 @@
         super(props);
         this.state = {
            dogs: [
-          {
-            id: 1,
-            name: "チワワ",
-            image: "https://www.min-breeder.com/images/postRanking_chihuahua.jpg?20191119_01",
-            info: "可愛いチワワ" ,
-            votes: 0,
-          },
-          {
-            id: 2,
-            name: "秋田犬", 
-            image: "https://www.axa-direct.co.jp/pet/pet-ms/img/media/2018/07/img_akita_kind-dog_kv-710x398.jpg",
-            info: "可愛い秋田犬",
-            votes: 0
-           },      
-           {
-             id: 3,
-             name: "ヨークシャテリア", 
-             image: "https://wanpedia.com/wordpress/wp-content/uploads/2018/05/Fotolia_188059058_Subscription_Monthly_M.jpg",
-             info: "可愛いヨークシャテリア",
-             votes: 0
-            }
+          // {
+          //   id: 1,
+          //   name: "チワワ",
+          //   image: "https://www.min-breeder.com/images/postRanking_chihuahua.jpg?20191119_01",
+          //   info: "可愛いチワワ" ,
+          //   votes: 0,
+          // },
+          // {
+          //   id: 2,
+          //   name: "秋田犬", 
+          //   image: "https://www.axa-direct.co.jp/pet/pet-ms/img/media/2018/07/img_akita_kind-dog_kv-710x398.jpg",
+          //   info: "可愛い秋田犬",
+          //   votes: 0
+          //  },      
+          //  {
+          //    id: 3,
+          //    name: "ヨークシャテリア", 
+          //    image: "https://wanpedia.com/wordpress/wp-content/uploads/2018/05/Fotolia_188059058_Subscription_Monthly_M.jpg",
+          //    info: "可愛いヨークシャテリア",
+          //    votes: 0
+          //   }
         ],
+        id: 0,
+        name: '',
+        image: '',
+        info: '',
+        votes: '',
         }
         this.countUp = this.countUp.bind(this);
+        this.addImage = this.addImage.bind(this);
       }
       countUp(dog) {
         this.setState(prevState =>{
@@ -123,6 +135,27 @@
           }
         });
       }
+      addImage(e) {
+        e.preventDefault();
+
+        const animal = {
+          id: this.state.id,
+          name: this.state.name,
+          image: this.state.image,
+          info: this.state.info,
+          votes: 0
+        };
+        const dogs = this.state.dogs.slice();
+        dogs.push(animal);
+        this.setState({
+          dogs: dogs,
+          id: this.state.id + 1,
+          name: '',
+          image: '',
+          info: '',
+          votes: ''
+        });
+      }
       render() {
         
         return (
@@ -132,6 +165,9 @@
               <DogsInfo 
                 dogs={this.state.dogs}
                 countUp={this.countUp}
+              />
+              <DogsForm 
+                addImage={this.addImage}
               />
             </div>
             
