@@ -1,4 +1,4 @@
-.dog-vote {
+.dogs-flex {
   display: flex;
   width: calc(100vw - 30px);
   margin-left: 20px;
@@ -7,5 +7,6 @@
 
 .container {
   width: 150px;
+  margin-left: 10px;
 }
 
