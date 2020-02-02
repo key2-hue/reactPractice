@@ -31,8 +31,8 @@
           modal = (
             <div className="container">
               
-              <p>{this.props.name}</p>
-              <img src={this.props.image} style={{width: 100,height:100}}/>
+              <p>{this.props.dog.name}</p>
+              <img src={this.props.dog.image} style={{width: 100,height:100}}/>
               <p>{this.state.count}</p>
               <button onClick={()=>{this.countUp()}}>押してください</button>
               
@@ -41,8 +41,8 @@
         } else {
           modal = (
           <div className="container">
-            <p>{this.props.name}</p>
-            <img src={this.props.image} style={{width: 100,height:100}}/>
+            <p>{this.props.dog.name}</p>
+            <img src={this.props.dog.image} style={{width: 100,height:100}}/>
             <p>{this.state.count}</p>
             <button>これ以上は増やすことはできません</button> 
           </div>
@@ -56,40 +56,61 @@
       }
     }
 
+    function DogsInfo(props) {
+      const dogs = props.dogs.map(dog => {
+        
+          return (
+          <App 
+            dog={dog}
+            key={dog.id}
+          />
+        );
+      });
+        return (
+          <ul>
+            {dogs}
+          </ul>
+        )
+    }
+    
+
     class Image extends React.Component {
-      render() {
-        const dogs = [
+      constructor(props) {
+        super(props);
+        this.state = {
+           dogs: [
           {
+            id: 1,
             name: "チワワ",
             image: "https://www.min-breeder.com/images/postRanking_chihuahua.jpg?20191119_01",
             info: "可愛いチワワ" 
           },
           {
+            id: 2,
             name: "秋田犬", 
             image: "https://www.axa-direct.co.jp/pet/pet-ms/img/media/2018/07/img_akita_kind-dog_kv-710x398.jpg",
             info: "可愛い秋田犬"
            },      
            {
+             id: 3,
              name: "ヨークシャテリア", 
              image: "https://wanpedia.com/wordpress/wp-content/uploads/2018/05/Fotolia_188059058_Subscription_Monthly_M.jpg",
              info: "可愛いヨークシャテリア"
             }
-        ];
+        ],
+        }
+      }
+      render() {
+        
         return (
           <div> 
-          <p>好きな種類を選んでください</p> 
+            <p>好きな種類を選んでください</p> 
             <div className="dog-vote">
-              {dogs.map((dog)=> {
-                return (
-                  <App 
-                    name={dog.name}
-                    image={dog.image}
-                    info={dog.info}
-                  />
-                );
-                
-              })}
+              <DogsInfo 
+                dogs={this.state.dogs}
+              />
             </div>
+            
           </div>
           
         );
