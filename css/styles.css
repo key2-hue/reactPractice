@@ -1,4 +1,11 @@
 .dog-vote {
   display: flex;
-  width: 300px;
+  width: calc(100vw - 30px);
+  margin-left: 20px;
+  flex-wrap: wrap;
 }
+
+.container {
+  width: 150px;
+}
+
