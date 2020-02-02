@@ -30,6 +30,8 @@
         if(this.state.count < 5) {
           modal = (
             <div>
+              <p>{this.props.name}</p>
+              <img src={this.props.image}/>
               <p>{this.state.count}</p>
               <button onClick={()=>{this.countUp()}}>押してください</button>
             </div>
@@ -37,6 +39,8 @@
         } else {
           modal = (
           <div>
+            <p>{this.props.name}</p>
+            <img src={this.props.image}/>
             <p>{this.state.count}</p>
             <button>これ以上は増やすことはできません</button> 
           </div>
@@ -50,11 +54,51 @@
       }
     }
 
+    class Image extends React.Component {
+      render() {
+        const dogs = [
+          {
+            name: "チワワ",
+            image: "https://www.min-breeder.com/images/postRanking_chihuahua.jpg?20191119_01",
+            info: "可愛いチワワ" 
+          },
+          {
+            name: "秋田犬", 
+            image: "https://www.axa-direct.co.jp/pet/pet-ms/img/media/2018/07/img_akita_kind-dog_kv-710x398.jpg",
+            info: "可愛い秋田犬"
+           },
+           {
+             name: "ヨークシャテリア", 
+             image: "https://wanpedia.com/wordpress/wp-content/uploads/2018/05/Fotolia_188059058_Subscription_Monthly_M.jpg",
+             info: "可愛いヨークシャテリア"
+            }
+        ];
+        return (
+          <div className="dog-vote">
+            <p>好きな種類を選んでください</p> 
+            {dogs.map((dog)=> {
+              return (
+                <App 
+                  name={dog.name}
+                  image={dog.image}
+                  info={dog.info}
+                />
+              );
+              
+            })}
+          </div>
+          
+        );
+      }
+    }
+
 
       
 
       ReactDOM.render(
-        <App />,
+        <div>
+          <Image />
+        </div>,
         document.getElementById('root')
       )
     })();
