@@ -20,11 +20,11 @@
           count: 0,
         }
       }
-      countUp() {
-        this.setState({
-          count: this.state.count + 1,
-        });
-      }
+      // countUp() {
+      //   this.setState({
+      //     count: this.state.count + 1,
+      //   });
+      // }
       render() {
         let modal;
         if(this.state.count < 5) {
@@ -33,8 +33,8 @@
               
               <p>{this.props.dog.name}</p>
               <img src={this.props.dog.image} style={{width: 100,height:100}}/>
-              <p>{this.state.count}</p>
-              <button onClick={()=>{this.countUp()}}>押してください</button>
+              <p>{this.props.dog.votes}</p>
+              <button onClick={()=> this.props.countUp(this.props.dog)}>押してください</button>
               
             </div>
           );
@@ -63,6 +63,7 @@
           <App 
             dog={dog}
             key={dog.id}
+            countUp={props.countUp}
           />
         );
       });
@@ -83,22 +84,39 @@
             id: 1,
             name: "チワワ",
             image: "https://www.min-breeder.com/images/postRanking_chihuahua.jpg?20191119_01",
-            info: "可愛いチワワ" 
+            info: "可愛いチワワ" ,
+            votes: 0,
           },
           {
             id: 2,
             name: "秋田犬", 
             image: "https://www.axa-direct.co.jp/pet/pet-ms/img/media/2018/07/img_akita_kind-dog_kv-710x398.jpg",
-            info: "可愛い秋田犬"
+            info: "可愛い秋田犬",
+            votes: 0
            },      
            {
              id: 3,
              name: "ヨークシャテリア", 
              image: "https://wanpedia.com/wordpress/wp-content/uploads/2018/05/Fotolia_188059058_Subscription_Monthly_M.jpg",
-             info: "可愛いヨークシャテリア"
+             info: "可愛いヨークシャテリア",
+             votes: 0
             }
         ],
         }
+        this.countUp = this.countUp.bind(this);
+      }
+      countUp(dog) {
+        this.setState(prevState =>{
+          const dogs = prevState.dogs.map(dog => {
+            return {
+              id: dog.id, name: dog.name, image: dog.image, info: dog.info
+            };
+          });
+          const num = dogs.map(dog => {
+            return dog.id;
+          }).indexOf(dog.id);
+          dogs[num].votes++;
+        });
       }
       render() {
         
@@ -108,6 +126,7 @@
             <div className="dog-vote">
               <DogsInfo 
                 dogs={this.state.dogs}
+                countUp={this.countUp}
               />
             </div>
             
