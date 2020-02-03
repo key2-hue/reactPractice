@@ -74,7 +74,8 @@
         <form onSubmit={props.addImage}>
           <input type="text" value={props.name}
           onChange={props.updateName}/>
-          <input type="file" value={props.image}/>
+          <input type="file" value={props.image}
+          onChange={props.updateImage}/>
           <input type="text" value={props.info} />
           <input type="submit" value="送信" /> 
         </form>
@@ -118,6 +119,7 @@
         this.countUp = this.countUp.bind(this);
         this.addImage = this.addImage.bind(this);
         this.updateName = this.updateName.bind(this);
+        this.updateImage = this.updateImage.bind(this);
       }
       countUp(dog) {
         this.setState(prevState =>{
@@ -165,6 +167,12 @@
         });
       }
 
+      updateImage(e) {
+        this.setState({
+          image: e.target.value
+        });
+      }
+
       render() {
         
         return (
@@ -181,6 +189,7 @@
                 info={this.state.info}
                 addImage={this.addImage}
                 updateName={this.updateName}
+                updateImage={this.updateImage}
               />
             </div>
             
