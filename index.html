@@ -72,7 +72,8 @@
     function DogsForm(props) {
       return (
         <form onSubmit={props.addImage}>
-          <input type="text" value={props.name}/>
+          <input type="text" value={props.name}
+          onChange={props.updateName}/>
           <input type="file" value={props.image}/>
           <input type="text" value={props.info} />
           <input type="submit" value="送信" /> 
@@ -116,6 +117,7 @@
         }
         this.countUp = this.countUp.bind(this);
         this.addImage = this.addImage.bind(this);
+        this.updateName = this.updateName.bind(this);
       }
       countUp(dog) {
         this.setState(prevState =>{
@@ -156,6 +158,13 @@
           votes: ''
         });
       }
+
+      updateName(e) {
+        this.setState({
+          name: e.target.value
+        });
+      }
+
       render() {
         
         return (
@@ -167,7 +176,11 @@
                 countUp={this.countUp}
               />
               <DogsForm 
+                name={this.state.name}
+                image={this.state.image}
+                info={this.state.info}
                 addImage={this.addImage}
+                updateName={this.updateName}
               />
             </div>
             
