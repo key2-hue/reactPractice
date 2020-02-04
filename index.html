@@ -173,6 +173,16 @@
         });
       }
 
+      componentDidUpdate() {
+        localStorage.setItem('dogs', JSON.stringify(this.state.dogs));
+      }
+
+      componentDidMount() {
+        this.setState({
+          dogs: JSON.parse(localStorage.getItem('dogs')) || []
+        });
+      }
+
       render() {
         
         return (
